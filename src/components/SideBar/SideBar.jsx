@@ -1,24 +1,27 @@
 import React, { useState } from "react";
-
 import { assets } from '../../assets/assets.js'
 import SidebarItem from "./SideBarItem.jsx";
 
 
 
-const Sidebar = () => {
-
-    const [isExtended, setIsExtended] = useState(false);
+const Sidebar = ({ isExtended, setIsExtended }) => {
 
     const clickMenu = () => {
-        setIsExtended(!isExtended);
-    }
+        setIsExtended(prev => !prev);
+    };
 
     return (
         <>
-            <div className="!p-4 h-screen w-auto bg-[#c6cacf] flex flex-col justify-between items-center">
+            {/* Sidebar chính */}
+            <div
+                className={`hidden md:flex fixed top-0 left-0 h-full bg-[#c6cacf] p-4 flex-col justify-between items-center
+                    md:!mr-8
+                    transition-width duration-600 ease-in-out
+                    ${isExtended ? 'w-32' : 'w-16'}
+                `}>
+                {/* Sidebar content */}
                 {/*top */}
                 <div className="!space-y-4">
-
                     {/*icon menu */}
                     <div className="w-full flex justify-start !p-1 cursor-pointer" onClick={clickMenu}>
                         <img className="w-5 h-5" src={assets.menu_icon} alt="Menu" />
@@ -32,7 +35,7 @@ const Sidebar = () => {
                     {isExtended
                         ?
                         <div className="flex flex-col !gap-2 cursor-pointer">
-                            <p className="font-medium" >Recent</p>
+                            <p className="sm:font-normal !m-4 md: font-medium" >Recent</p>
                             <div className="flex flex-row items-center hover:bg-[#e6eaf1] rounded-full !py-1 !px-3">
                                 <img className="w-4 h-4" src={assets.message_icon} alt="" />
                                 <p className="text-sm !ml-2">What is react ...</p>
